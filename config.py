@@ -5,7 +5,7 @@ channel = "CHANNEL NAME TO SEND THE REMINDER"
 prayer_times = {
     "Fajr": "17:22",
     "Dhuhr": "13:20",
-    "Asr": "18:15",
+    "Asr": "16:15",
     "Maghrib": "17:30",
     "Isha": "18:52"
 }
