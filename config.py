@@ -2,6 +2,7 @@
 access_token = "YOUR ACCESS TOKEN"
 user_name = "USER NAME WILL BE DISPLAYED"
 channel = "CHANNEL NAME TO SEND THE REMINDER"
+# Prayer time in 24 hour clock
 prayer_times = {
     "Fajr": "17:22",
     "Dhuhr": "13:20",
