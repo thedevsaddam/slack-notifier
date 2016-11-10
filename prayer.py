@@ -1,11 +1,12 @@
 #!/usr/bin/python
 import requests
-import datetime
+import time
 from config import *
 
 BASE_URL = "https://slack.com/api/chat.postMessage"
 message = "prayer will be held within 5 minutes"
-now = datetime.datetime.now()
+hour = time.strftime('%H')
+minute = time.strftime('%M')
 
 
 def is_prayer_available(hour, minute):
@@ -19,9 +20,9 @@ def is_prayer_available(hour, minute):
     return None
 
 
-if is_prayer_available(now.hour, now.minute):
+if is_prayer_available(hour, minute):
     params = {
-        "text": "*" + is_prayer_available(now.hour, now.minute) + "* " + message,
+        "text": "*" + is_prayer_available(hour, minute) + "* " + message,
         "channel": channel,
         "token": access_token,
         "username": user_name
