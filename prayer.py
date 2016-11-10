@@ -5,24 +5,24 @@ from config import *
 
 BASE_URL = "https://slack.com/api/chat.postMessage"
 message = "prayer will be held within 5 minutes"
-hour = time.strftime('%H')
-minute = time.strftime('%M')
+_hour = time.strftime('%H')
+_minute = time.strftime('%M')
 
 
-def is_prayer_available(hour, minute):
+def is_prayer_available(_hour, _minute):
+    current_time_minutes = int(_hour) * 60 + int(_minute)
     for prayer_name, prayer_time in prayer_times.items():
         prayer_time_ = (str(prayer_time)).split(":")
-        prayer_time_minutes = (int(prayer_time_[0]) * 60) + int(prayer_time_[1])
-        current_time_minutes = int(hour * 60) + int(minute)
+        prayer_time_minutes = ((int(prayer_time_[0]) * 60) + int(prayer_time_[1]))
         if current_time_minutes in range((prayer_time_minutes - 5), prayer_time_minutes + 1):
             return prayer_name
 
     return None
 
 
-if is_prayer_available(hour, minute):
+if is_prayer_available(_hour, _minute):
     params = {
-        "text": "*" + is_prayer_available(hour, minute) + "* " + message,
+        "text": "*" + is_prayer_available(_hour, _minute) + "* " + message,
         "channel": channel,
         "token": access_token,
         "username": user_name
