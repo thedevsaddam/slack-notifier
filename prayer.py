@@ -7,6 +7,9 @@ from config import *
 
 BASE_URL = "https://slack.com/api/chat.postMessage"
 
+# reformat notify before
+notify_before = map(lambda minute: int(minute), filter(lambda x: x.strip() if len(x.strip()) else False, notify_before.split(",")))
+
 if time_format not in [12, 24]:
     raise Exception('Time format should either be 12 or 24')
 
@@ -29,7 +32,8 @@ def is_notifiable_difference(from_time, to_time):
     format = "%H:%M"
     t1 = datetime.strptime(from_time, format)
     t2 = datetime.strptime(to_time, format)
-    return True if (((t1 - t2).seconds) // 60) == notify_before else False
+    difference = (((t1 - t2).seconds) // 60)
+    return [True, difference] if difference in notify_before else [False, difference]
 
 def send_notification(body = "It's salat time"):
     params = {
@@ -63,14 +67,20 @@ formatted_isha = format_time(isha) if time_format == 12 else isha
 # current time
 now = get_current_time()
 
-if is_notifiable_difference(formatted_fajr, now):
-    send_notification(body = "It's *`Fajr`* prayer time. {} minutes to go.".format(notify_before))
-elif is_notifiable_difference(formatted_zuhr, now):
-    send_notification(body = "It's *`Zuhr`* prayer time. {} minutes to go.".format(notify_before))
-elif is_notifiable_difference(formatted_asr, now):
-    send_notification(body = "It's *`Asr`* prayer time. {} minutes to go.".format(notify_before))
-elif is_notifiable_difference(formatted_magrib, now):
-    send_notification(body = "It's *`Magrib`* prayer time. {} minutes to go.".format(notify_before))
-elif is_notifiable_difference(formatted_isha, now):
-    send_notification(body = "It's *`Isha`* prayer time. {} minutes to go.".format(notify_before))
+notifiable_fajr = is_notifiable_difference(formatted_fajr, now)
+notifiable_zuhr = is_notifiable_difference(formatted_zuhr, now)
+notifiable_asr = is_notifiable_difference(formatted_asr, now)
+notifiable_magrib = is_notifiable_difference(formatted_magrib, now)
+notifiable_isha = is_notifiable_difference(formatted_isha, now)
+
+if notifiable_fajr[0]:
+    send_notification(body = "It's *`Fajr`* prayer time. {} minutes to go.".format(notifiable_fajr[1]))
+elif notifiable_zuhr[0]:
+    send_notification(body = "It's *`Zuhr`* prayer time. {} minutes to go.".format(notifiable_zuhr[1]))
+elif notifiable_asr[0]:
+    send_notification(body = "It's *`Asr`* prayer time. {} minutes to go.".format(notifiable_asr[1]))
+elif notifiable_magrib[0]:
+    send_notification(body = "It's *`Magrib`* prayer time. {} minutes to go.".format(notifiable_magrib[1]))
+elif notifiable_isha[0]:
+    send_notification(body = "It's *`Isha`* prayer time. {} minutes to go.".format(notifiable_isha[1]))
 
