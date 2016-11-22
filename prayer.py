@@ -44,43 +44,13 @@ def send_notification(body = "It's salat time"):
     }
     requests.get(BASE_URL, params)
 
-# get the fajr prayer time
-fajr = fajr.strip()
-formatted_fajr = format_time(fajr) if time_format == 12 else fajr
-
-# get the zuhr prayer time
-zuhr = zuhr.strip()
-formatted_zuhr = format_time(zuhr) if time_format == 12 else zuhr
-
-# get the asr prayer time
-asr = asr.strip()
-formatted_asr = format_time(asr) if time_format == 12 else asr
-
-# get the magrib prayer time
-magrib = magrib.strip()
-formatted_magrib = format_time(magrib) if time_format == 12 else magrib
-
-# get the isha prayer time
-isha = isha.strip()
-formatted_isha = format_time(isha) if time_format == 12 else isha
-
 # current time
 now = get_current_time()
 
-notifiable_fajr = is_notifiable_difference(formatted_fajr, now)
-notifiable_zuhr = is_notifiable_difference(formatted_zuhr, now)
-notifiable_asr = is_notifiable_difference(formatted_asr, now)
-notifiable_magrib = is_notifiable_difference(formatted_magrib, now)
-notifiable_isha = is_notifiable_difference(formatted_isha, now)
-
-if notifiable_fajr[0]:
-    send_notification(body = "It's *`Fajr`* prayer time. {} minutes to go.".format(notifiable_fajr[1]))
-elif notifiable_zuhr[0]:
-    send_notification(body = "It's *`Zuhr`* prayer time. {} minutes to go.".format(notifiable_zuhr[1]))
-elif notifiable_asr[0]:
-    send_notification(body = "It's *`Asr`* prayer time. {} minutes to go.".format(notifiable_asr[1]))
-elif notifiable_magrib[0]:
-    send_notification(body = "It's *`Magrib`* prayer time. {} minutes to go.".format(notifiable_magrib[1]))
-elif notifiable_isha[0]:
-    send_notification(body = "It's *`Isha`* prayer time. {} minutes to go.".format(notifiable_isha[1]))
-
+#looping over the listed salat times and send notifications
+for salat, time in salat_times:
+    time = time.strip()
+    formatted_time = format_time(time) if time_format == 12 else time
+    notifiable_salat = is_notifiable_difference(formatted_time, now)
+    if notifiable_salat[0]:
+        send_notification(body = "It's *`{}`* prayer time. {} minutes to go.".format(salat.capitalize(), notifiable_fajr[1]))
