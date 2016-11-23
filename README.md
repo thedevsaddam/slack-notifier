@@ -42,6 +42,10 @@ _Note:  To get username type `whoami` in interminal_
 1. Open `config.py` and set thee slack access token and other information like `channel name`, `user name`
 1. Adjust the prayer time
 
+### Contributor
+* [Syed Sirajul Islam Anik](https://github.com/ssi-anik)
+* [Ahmed shamim](https://github.com/me-shaon)
+
 **NB:** Make sure you install ```request``` module.
 
 _Thank you :)_
