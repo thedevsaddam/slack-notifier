@@ -1,5 +1,5 @@
-# Prayer reminder
-Script to remind prayer time through slack..
+# Slack notifier
+This script will help you to send slack scheduled notification (message) like `daily stand up meeting`, `prayer reminder` etc
 
 ---
 ### Installation
@@ -13,14 +13,14 @@ cd ~/Downloads/
 Clone the repository
 
 ```bash
-git clone https://github.com/thedevsaddam/prayer-reminder.git
+git clone https://github.com/thedevsaddam/slack-notifier.git
 ```
 or download the zip file manually and unzip to __Downloads__ directory
 
 Change permission to 777
 
 ```bash
-sudo chmod -R 777 prayer-reminder
+sudo chmod -R 777 notifier
 ```
 Open crontab in edit mode
 
@@ -30,7 +30,7 @@ crontab -e
 
 Copy the line below and paste
 ```bash
-* * * * * python /home/YOUR_USER_NAME/Downloads/prayer-reminder/prayer.py
+* * * * * python /home/YOUR_USER_NAME/Downloads/slack-notifier/notifier.py
 ```
 Replace YOUR_USER_NAME by your user name.
 
