@@ -40,7 +40,7 @@ _Note:  To get username type `whoami` in interminal_
 1. Create a slack bot user
 1. Collect the access token
 1. Open `config.py` and set thee slack access token and other information like `channel name`, `user name`
-1. Adjust the prayer time
+1. Adjust the notifier time
 
 ### Contributor
 * [Syed Sirajul Islam Anik](https://github.com/ssi-anik)
