@@ -4,11 +4,14 @@
 import requests
 from datetime import datetime
 from config import *
+from pattern.en import singularize
 
 BASE_URL = "https://slack.com/api/chat.postMessage"
 
 # reformat notify before
 notify_before = map(lambda minute: int(minute), filter(lambda x: x.strip() if len(x.strip()) else False, notify_before.split(",")))
+# Need to make a copy of the notify before, otherwise, it becomes [] on very next call.
+times = list(notify_before)
 
 if time_format not in [12, 24]:
     raise Exception('Time format should either be 12 or 24')
@@ -28,12 +31,12 @@ def format_time(utime):
         return "{}:{}".format(new_time, splited[1]).strip()
 
 def is_notifiable_difference(from_time, to_time):
-    global notify_before
+    global times
     format = "%H:%M"
     t1 = datetime.strptime(from_time, format)
     t2 = datetime.strptime(to_time, format)
     difference = (((t1 - t2).seconds) // 60)
-    return [True, difference] if difference in notify_before else [False, difference]
+    return [True, difference] if difference in times else [False, difference]
 
 def send_notification(body = "It's salat time"):
     params = {
@@ -47,10 +50,19 @@ def send_notification(body = "It's salat time"):
 # current time
 now = get_current_time()
 
-#looping over the listed salat times and send notifications
-for salat, time in salat_times.items():
-    time = time.strip()
+# Loop over all the events registered
+for event, body in events.items():
+    # check if the event body has time and message as key
+    if 'time' not in body or 'message' not in body:
+        raise Exception("The event '{}' doesn't contain the 'time' or 'message' or both as key.".format(event))
+
+    # get the time from the event body, strip the whitespaces
+    time = body.get('time').strip()
+    # format the time if needed
     formatted_time = format_time(time) if time_format == 12 else time
-    notifiable_salat = is_notifiable_difference(formatted_time, now)
-    if notifiable_salat[0]:
-        send_notification(body = "It's *`{}`* prayer time. {} minutes to go.".format(salat.capitalize(), notifiable_salat[1]))
+    # is the given time is notifiable 
+    notifiable = is_notifiable_difference(formatted_time, now)
+    # if notifiable[0] == true, send notification
+    if notifiable[0]:
+        send_notification(body = "{}. *`{} {}`* to go".format(body.get('message').strip(' .'), notifiable[1], \
+            singularize('minutes') if notifiable[1] == 1 else "minutes"))
