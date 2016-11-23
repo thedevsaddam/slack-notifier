@@ -12,13 +12,4 @@ time_format = 12
 notify_before = "5,3,1"
 
 # Configure the time according to time format
-# Fajr salat time
-fajr="5:30 AM"
-# Zuhr salat time
-zuhr="1:15 PM"
-# Asr salat time
-asr="4:15 PM"
-# Magrib salat time
-magrib="5:20PM"
-# Isha salat time
-isha="6:45 PM"
+salat_times={'fajr': '5:30 AM', 'zuhr': '1:15 PM', 'asr': '4:15 PM', 'magrib': '5:20PM', 'isha': '6:45 PM' }
