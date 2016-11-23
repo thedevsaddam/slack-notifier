@@ -48,9 +48,9 @@ def send_notification(body = "It's salat time"):
 now = get_current_time()
 
 #looping over the listed salat times and send notifications
-for salat, time in salat_times:
+for salat, time in salat_times.items():
     time = time.strip()
     formatted_time = format_time(time) if time_format == 12 else time
     notifiable_salat = is_notifiable_difference(formatted_time, now)
     if notifiable_salat[0]:
-        send_notification(body = "It's *`{}`* prayer time. {} minutes to go.".format(salat.capitalize(), notifiable_fajr[1]))
+        send_notification(body = "It's *`{}`* prayer time. {} minutes to go.".format(salat.capitalize(), notifiable_salat[1]))
