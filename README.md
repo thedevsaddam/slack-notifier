@@ -1,5 +1,5 @@
 # Slack notifier
-This script will help you to send slack scheduled notification (message) like `daily stand up meeting`, `prayer reminder` etc
+This script will help you to send slack scheduled notification (message) like `daily stand up meeting`, `prayer reminder` etc.
 
 ---
 ### Installation
@@ -37,12 +37,14 @@ Replace YOUR_USER_NAME by your user name.
 _Note:  To get username type `whoami` in interminal_
 
 ### Configuration
-1. You must have to use Python2 **(Pattern module is not available under python3)**.
-2. Install requirements `pip install -r requirements.txt`.
-3. Create a slack bot user.
-4. Collect the access token.
-5. Open `config.py` and set thee slack access token and other information like `channel name`, `user name`.
-6. Adjust the notifier time.
+1. Install `requests` python module, if you don't already have that
+```
+pip install requests
+```
+2. Create a slack bot user.
+3. Collect the access token.
+4. Open `config.py` and set the `slack access token` and other information like `channel name`, `user name`.
+5. Adjust the notifier time.
 
 ### Contributors
 * [Syed Sirajul Islam Anik](https://github.com/ssi-anik)
