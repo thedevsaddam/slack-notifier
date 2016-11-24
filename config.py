@@ -33,7 +33,7 @@ events={
 		'message': "It's *`Isha`* time."
 	},
 	'standup':{
-		'time': '11:15aM',
+		'time': '11:15 AM',
 		'message': "*`Stand up`* on meeting room. Everyone please come in time."
 	}
 }
