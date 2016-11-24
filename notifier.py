@@ -4,7 +4,6 @@
 import requests
 from datetime import datetime
 from config import *
-from pattern.en import singularize
 
 BASE_URL = "https://slack.com/api/chat.postMessage"
 
@@ -60,9 +59,9 @@ for event, body in events.items():
     time = body.get('time').strip()
     # format the time if needed
     formatted_time = format_time(time) if time_format == 12 else time
-    # is the given time is notifiable 
+    # is the given time is notifiable
     notifiable = is_notifiable_difference(formatted_time, now)
     # if notifiable[0] == true, send notification
     if notifiable[0]:
         send_notification(body = "{}. *`{} {}`* to go".format(body.get('message').strip(' .'), notifiable[1], \
-            singularize('minutes') if notifiable[1] == 1 else "minutes"))
+            'minute' if notifiable[1] == 1 else "minutes"))
