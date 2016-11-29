@@ -1,6 +1,8 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
+#Base URL (Don't change this)
+BASE_URL = "https://slack.com/api/chat.postMessage"
 # Configuration
 access_token = "ACCESS_TOKEN_HERE"
 user_name = "USER_NAME_FOR_YOUR_SLACK_BOT"
