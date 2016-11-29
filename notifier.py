@@ -5,8 +5,6 @@ import requests
 from datetime import datetime
 from config import *
 
-BASE_URL = "https://slack.com/api/chat.postMessage"
-
 # reformat notify before
 notify_before = map(lambda minute: int(minute), filter(lambda x: x.strip() if len(x.strip()) else False, notify_before.split(",")))
 # Need to make a copy of the notify before, otherwise, it becomes [] on very next call.
